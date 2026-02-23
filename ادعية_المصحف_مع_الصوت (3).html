@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أدعية المصحف الشريف — بصوت الشيخ مشاري العفاسي</title>
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E8C0;
+    --gold-dim: rgba(201,168,76,0.15);
+    --dark:  #0A0E14;
+    --dark2: #111620;
+    --dark3: #181E2A;
+    --dark4: #1F2736;
+    --text:  #EAE0CC;
+    --text-dim: #8A7E6C;
+    --text-soft: #B8A98E;
+    --green: #2A5C45;
+    --green-light: #4BAF82;
+    --teal: #1A6B5A;
+    --playing-glow: rgba(201,168,76,0.25);
+    --red: #C0392B;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Atmospheric background ── */
+  .scene {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 50% at 10% 80%,  rgba(74,175,130,0.04) 0%, transparent 60%),
+                var(--dark);
+  }
+
+  .scene-stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 8%  12%, rgba(201,168,76,0.6) 0%, transparent 100%),
+      radial-gradient(1px   1px   at 22% 38%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 8%,  rgba(201,168,76,0.4) 0%, transparent 100%),
+      radial-gradient(1px   1px   at 60% 55%, rgba(255,255,255,0.2)  0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 78% 20%, rgba(201,168,76,0.5) 0%, transparent 100%),
+      radial-gradient(1px   1px   at 88% 72%, rgba(255,255,255,0.2)  0%, transparent 100%),
+      radial-gradient(1px   1px   at 15% 65%, rgba(201,168,76,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 82%, rgba(201,168,76,0.35) 0%, transparent 100%),
+      radial-gradient(1px   1px   at 95% 42%, rgba(255,255,255,0.2)  0%, transparent 100%);
+    animation: starPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes starPulse { 0%{opacity:.5} 100%{opacity:1} }
+
+  /* decorative crescent top */
+  .scene-crescent {
+    position: absolute; top: -180px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px; border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 120px 60px rgba(201,168,76,0.06);
+    pointer-events: none;
+  }
+
+  /* ── Layout ── */
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px 120px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    padding: 52px 20px 28px;
+  }
+
+  .bismillah {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    color: var(--gold-light);
+    letter-spacing: 3px;
+    text-shadow: 0 0 40px rgba(201,168,76,0.45);
+    animation: fadeDown .8s ease both;
+  }
+
+  .main-title {
+    font-size: clamp(26px, 6vw, 44px);
+    font-weight: 700;
+    background: linear-gradient(140deg, var(--gold) 0%, var(--gold-light) 50%, #A8782A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.25;
+    margin-top: 12px;
+    animation: fadeDown .9s ease both;
+  }
+
+  .reciter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 7px 18px;
+    border-radius: 30px;
+    border: 1px solid rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.07);
+    font-size: 14px;
+    color: var(--gold-light);
+    animation: fadeDown 1s ease both;
+  }
+
+  .reciter-badge span { color: var(--text-dim); font-size: 13px; }
+
+  .divider-ornament {
+    text-align: center;
+    color: rgba(201,168,76,0.35);
+    font-size: 20px;
+    letter-spacing: 10px;
+    margin: 18px 0 24px;
+    animation: fadeIn 1.1s ease both;
+  }
+
+  /* ── Stats ── */
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.14);
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    animation: fadeIn 1.2s ease both;
+    flex-wrap: wrap;
+  }
+
+  .stat-cell {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: 18px 12px;
+    position: relative;
+  }
+
+  .stat-cell + .stat-cell::before {
+    content: '';
+    position: absolute;
+    top: 20%; bottom: 20%;
+    right: 0;
+    width: 1px;
+    background: rgba(201,168,76,0.12);
+  }
+
+  .stat-n {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-l {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 5px;
+    display: block;
+  }
+
+  /* ── Controls ── */
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    animation: fadeIn 1.3s ease both;
+  }
+
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 13px;
+    padding: 12px 42px 12px 16px;
+    color: var(--text);
+    font-family: 'Scheherazade New', serif;
+    font-size: 17px;
+    outline: none;
+    text-align: right;
+    transition: border-color .3s, box-shadow .3s;
+  }
+
+  .search-input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  }
+
+  .search-input::placeholder { color: var(--text-dim); font-family: 'Tajawal', sans-serif; font-size: 14px; }
+
+  .filter-chips {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    transition: all .25s;
+    white-space: nowrap;
+  }
+
+  .chip:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+  .chip.active { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+
+  /* ── Dua Cards ── */
+  #grid { display: grid; gap: 18px; }
+
+  .dua-card {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: border-color .35s, box-shadow .35s, transform .35s;
+    animation: slideUp .45s ease both;
+    position: relative;
+  }
+
+  .dua-card:hover {
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(201,168,76,0.07);
+  }
+
+  .dua-card.is-playing {
+    border-color: rgba(201,168,76,0.55);
+    box-shadow: 0 0 40px var(--playing-glow), 0 16px 50px rgba(0,0,0,.45);
+  }
+
+  .dua-card.is-memorized {
+    border-color: rgba(75,175,130,0.35);
+    background: linear-gradient(135deg, rgba(42,92,69,0.15), var(--dark2));
+  }
+
+  /* top strip: number + surah ref + actions */
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+    gap: 10px;
+  }
+
+  .dua-num {
+    width: 34px; height: 34px; flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(201,168,76,0.22), rgba(201,168,76,0.05));
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    color: var(--gold);
+    transition: background .3s;
+  }
+
+  .is-memorized .dua-num {
+    background: linear-gradient(135deg, rgba(75,175,130,0.35), rgba(75,175,130,0.1));
+    border-color: rgba(75,175,130,0.5);
+    color: var(--green-light);
+  }
+
+  .surah-ref {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+
+  .surah-name {
+    color: var(--gold-light);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .ayah-badge {
+    padding: 2px 9px;
+    border-radius: 20px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* multiple ayat: show range */
+  .ayah-badge.multi { background: rgba(74,175,130,0.1); border-color: rgba(74,175,130,0.25); color: var(--green-light); }
+
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .ic-btn {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    transition: all .22s;
+  }
+
+  .ic-btn:hover { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); transform: scale(1.08); }
+  .ic-btn.green-active { background: rgba(75,175,130,0.2); border-color: var(--green-light); color: var(--green-light); }
+  .ic-btn.copied { background: rgba(75,175,130,0.2); border-color: var(--green-light); color: var(--green-light); }
+
+  /* Play button — larger */
+  .play-btn {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    border: 1px solid rgba(201,168,76,0.35);
+    background: linear-gradient(135deg, rgba(201,168,76,0.18), rgba(201,168,76,0.05));
+    color: var(--gold);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    transition: all .25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .play-btn:hover {
+    background: linear-gradient(135deg, rgba(201,168,76,0.35), rgba(201,168,76,0.15));
+    box-shadow: 0 0 18px rgba(201,168,76,0.3);
+    transform: scale(1.07);
+  }
+
+  .play-btn.playing {
+    background: linear-gradient(135deg, rgba(201,168,76,0.45), rgba(201,168,76,0.2));
+    box-shadow: 0 0 24px rgba(201,168,76,0.45);
+    border-color: var(--gold);
+    animation: playPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes playPulse {
+    0%,100% { box-shadow: 0 0 18px rgba(201,168,76,0.3); }
+    50%      { box-shadow: 0 0 36px rgba(201,168,76,0.6); }
+  }
+
+  /* Dua text */
+  .card-body {
+    padding: 4px 24px 18px;
+  }
+
+  .dua-text {
+    font-family: 'Scheherazade New', serif;
+    font-size: clamp(19px, 3.8vw, 26px);
+    line-height: 2;
+    color: var(--text);
+    text-align: justify;
+    direction: rtl;
+    transition: color .3s;
+  }
+
+  .is-playing .dua-text { color: var(--gold-pale); }
+
+  /* Audio waveform visual while playing */
+  .wave-bar {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 22px;
+    margin: 6px 0 2px;
+  }
+
+  .is-playing .wave-bar { display: flex; }
+
+  .wave-bar span {
+    display: block;
+    width: 3px;
+    border-radius: 3px;
+    background: var(--gold);
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  .wave-bar span:nth-child(1) { height: 8px;  animation-delay: 0s; }
+  .wave-bar span:nth-child(2) { height: 16px; animation-delay: .15s; }
+  .wave-bar span:nth-child(3) { height: 22px; animation-delay: .3s; }
+  .wave-bar span:nth-child(4) { height: 14px; animation-delay: .45s; }
+  .wave-bar span:nth-child(5) { height: 20px; animation-delay: .6s; }
+  .wave-bar span:nth-child(6) { height: 10px; animation-delay: .75s; }
+  .wave-bar span:nth-child(7) { height: 16px; animation-delay: .9s; }
+
+  @keyframes wave {
+    0%,100% { transform: scaleY(0.4); opacity:.5; }
+    50%      { transform: scaleY(1);   opacity:1; }
+  }
+
+  /* Card footer: counter */
+  .card-foot {
+    padding: 10px 18px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .counter-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 30px;
+    padding: 5px 10px;
+  }
+
+  .cnt-btn {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-soft);
+    cursor: pointer;
+    font-size: 17px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+    transition: all .2s;
+    user-select: none;
+  }
+
+  .cnt-btn:hover { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+
+  .cnt-val {
+    font-size: 18px; font-weight: 700;
+    color: var(--gold);
+    min-width: 28px; text-align: center;
+    transition: transform .15s;
+  }
+
+  .cnt-val.bump { animation: bump .25s ease; }
+  @keyframes bump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+
+  .cnt-label { font-size: 12px; color: var(--text-dim); }
+
+  .read-label { font-size: 12px; color: var(--text-dim); }
+
+  /* Progress bar */
+  .prog-track {
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 0 0 22px 22px;
+  }
+
+  .prog-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--green-light), var(--gold));
+    transition: width .5s ease;
+  }
+
+  /* ── Floating bar ── */
+  .float-bar {
+    position: fixed;
+    bottom: 26px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--dark3), var(--dark4));
+    border: 1px solid rgba(201,168,76,0.28);
+    border-radius: 50px;
+    padding: 12px 26px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.55);
+    z-index: 200;
+    backdrop-filter: blur(12px);
+    white-space: nowrap;
+    animation: floatIn .7s 1.2s ease both;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .float-stat { text-align: center; }
+  .float-n { font-size: 20px; font-weight: 700; color: var(--gold); display: block; }
+  .float-l { font-size: 11px; color: var(--text-dim); }
+
+  .float-divider { width: 1px; height: 30px; background: rgba(255,255,255,0.08); }
+
+  .reset-btn {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 12px;
+    transition: all .25s;
+  }
+
+  .reset-btn:hover { border-color: rgba(192,57,43,0.4); color: #E74C3C; background: rgba(192,57,43,0.1); }
+
+  /* ── Now Playing mini indicator ── */
+  .now-playing-strip {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--gold);
+  }
+
+  .now-playing-strip.visible { display: flex; }
+  .now-playing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed; top: 26px; left: 50%;
+    transform: translateX(-50%) translateY(-16px);
+    background: var(--dark3);
+    border: 1px solid rgba(75,175,130,0.4);
+    color: var(--green-light);
+    padding: 11px 22px;
+    border-radius: 12px;
+    font-size: 14px;
+    opacity: 0;
+    transition: all .3s;
+    z-index: 300;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
+
+  /* ── Empty state ── */
+  .empty { text-align:center; padding:60px 20px; color: var(--text-dim); }
+  .empty .ico { font-size:48px; margin-bottom:14px; }
+
+  /* ── Animations ── */
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+  @keyframes slideUp  { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes floatIn  { from{opacity:0;transform:translateX(-50%) translateY(18px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+
+  /* ── Audio error msg ── */
+  .audio-err {
+    font-size: 11px;
+    color: rgba(192,57,43,0.8);
+    padding: 4px 18px 8px;
+    display: none;
+  }
+
+  /* ── Settings Panel ── */
+  .settings-bar {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 18px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    animation: fadeIn 1.25s ease both;
+  }
+
+  .settings-title {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+
+  .settings-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .settings-group {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .settings-group-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Reciter select */
+  .reciter-select {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 11px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color .3s;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C9A84C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 12px center;
+    padding-left: 32px;
+  }
+
+  .reciter-select:focus { border-color: var(--gold); }
+  .reciter-select option { background: var(--dark2); color: var(--text); }
+
+  /* Play mode toggle */
+  .mode-toggle {
+    display: flex;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 11px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .mode-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    transition: all .25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 0;
+  }
+
+  .mode-btn.active {
+    background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.1));
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .mode-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-soft);
+  }
+
+  /* now-playing auto-advance indicator */
+  .auto-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--green-light);
+    background: rgba(75,175,130,0.12);
+    border: 1px solid rgba(75,175,130,0.25);
+    border-radius: 20px;
+    padding: 2px 10px;
+    margin-right: 8px;
+    animation: blink 2s infinite;
+  }
+
+  /* reciter name in badge updates dynamically */
+  #reciterBadgeName { transition: opacity .3s; }
+
+  /* ── Responsive ── */
+  @media (max-width:600px) {
+    .controls { flex-direction: column; }
+    .float-bar { padding: 10px 16px; gap: 14px; font-size: 13px; }
+    .card-top { flex-wrap: wrap; }
+    .dua-text { font-size: 18px; line-height: 1.9; }
+    .settings-row { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <div class="scene-stars"></div>
+  <div class="scene-crescent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="wrap">
+
+  <header>
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <h1 class="main-title">أدعية المصحف الشريف</h1>
+    <div class="reciter-badge">
+      🎙️ <span id="reciterBadgeName">مشاري راشد العفاسي</span> <span>· everyayah.com</span>
+    </div>
+  </header>
+
+  <div class="divider-ornament">❧ ✦ ❧</div>
+
+  <!-- Settings Panel -->
+  <div class="settings-bar">
+    <div class="settings-title">⚙️ إعدادات التلاوة</div>
+    <div class="settings-row">
+
+      <div class="settings-group">
+        <div class="settings-group-label">🎙️ اختر القارئ</div>
+        <select class="reciter-select" id="reciterSelect" onchange="changeReciter(this.value)">
+          <option value="Alafasy_128kbps">مشاري راشد العفاسي</option>
+          <option value="Abdul_Basit_Murattal_192kbps">عبد الباسط عبد الصمد — مرتّل</option>
+          <option value="Abdul_Basit_Mujawwad_128kbps">عبد الباسط عبد الصمد — مجوّد</option>
+          <option value="Abdurrahmaan_As-Sudais_192kbps">عبد الرحمن السديس</option>
+          <option value="Husary_128kbps">محمود خليل الحصري — مرتّل</option>
+          <option value="Husary_128kbps_Mujawwad">محمود خليل الحصري — مجوّد</option>
+          <option value="Maher_Al_Muaiqly_128kbps">ماهر المعيقلي</option>
+          <option value="Muhammad_Jibreel_128kbps">محمد جبريل</option>
+          <option value="Abu_Bakr_Ash-Shaatree_128kbps">أبو بكر الشاطري</option>
+          <option value="Saood_ash-Shuraym_128kbps">سعود الشريم</option>
+          <option value="Yasser_Ad-Dussary_128kbps">ياسر الدوسري</option>
+          <option value="ahmed_ibn_ali_al_ajamy_128kbps">أحمد العجمي</option>
+          <option value="Abdullah_Basfar_192kbps">عبد الله بصفر</option>
+        </select>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-group-label">▶ وضع التشغيل</div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeSingle" onclick="setPlayMode('single')">
+            ☝️ دعاء واحد
+          </button>
+          <button class="mode-btn" id="modeAll" onclick="setPlayMode('all')">
+            ⏭ كل الأدعية
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-cell">
+      <span class="stat-n" id="s-total">٤٨</span>
+      <span class="stat-l">دعاء قرآني</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n" id="s-mem">٠</span>
+      <span class="stat-l">محفوظة</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n" id="s-rec">٠</span>
+      <span class="stat-l">إجمالي التلاوات</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n" id="s-pct">٠٪</span>
+      <span class="stat-l">نسبة التقدم</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="searchBox" type="text" placeholder="ابحث في الأدعية..." oninput="render()">
+    </div>
+    <div class="filter-chips">
+      <button class="chip active" data-filter="all"      onclick="setFilter(this)">الكل</button>
+      <button class="chip"        data-filter="memorized" onclick="setFilter(this)">المحفوظة</button>
+      <button class="chip"        data-filter="other"     onclick="setFilter(this)">غير المحفوظة</button>
+    </div>
+  </div>
+
+  <div id="grid"></div>
+
+</div><!-- /wrap -->
+
+<!-- Floating bar -->
+<div class="float-bar">
+  <div class="now-playing-strip" id="nowPlayingStrip">
+    <div class="now-playing-dot"></div>
+    <span id="nowPlayingName"></span>
+  </div>
+  <div class="float-divider" id="npDiv" style="display:none"></div>
+
+  <div class="float-stat">
+    <span class="float-n" id="f-rec">٠</span>
+    <span class="float-l">مجموع التلاوات</span>
+  </div>
+  <div class="float-divider"></div>
+  <div class="float-stat">
+    <span class="float-n" id="f-mem">٠</span>
+    <span class="float-l">محفوظة</span>
+  </div>
+  <div class="float-divider"></div>
+  <button class="reset-btn" onclick="resetAll()">↺ إعادة تعيين</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA — 48 duas with surah name, ayah number(s)
+   everyayah URL: https://everyayah.com/data/Alafasy_128kbps/SSSAAA.mp3
+   SSS = 3-digit surah, AAA = 3-digit ayah
+═══════════════════════════════════════════════════════ */
+const BASE_URL = "https://everyayah.com/data/";
+
+function ayahUrl(surah, ayah) {
+  return BASE_URL + currentReciter + '/' + String(surah).padStart(3,'0') + String(ayah).padStart(3,'0') + '.mp3';
+}
+
+// ayahStart & ayahEnd define the full range to play sequentially
+// For duas from a single ayah: ayahStart === ayahEnd
+// For طه 25-28 + 114: we use ayahList (special non-contiguous)
+const DUAS = [
+  { text: "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ ۞ وَتُبْ عَلَيْنَا إِنَّكَ أَنتَ التَّوَّابُ الرَّحِيمُ",
+    surah:"البقرة", ayah:"١٢٧-١٢٨", surahN:2, ayahStart:127, ayahEnd:128 },
+  { text: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+    surah:"البقرة", ayah:"٢٠١", surahN:2, ayahStart:201, ayahEnd:201 },
+  { text: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+    surah:"البقرة", ayah:"٢٥٠", surahN:2, ayahStart:250, ayahEnd:250 },
+  { text: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا ۞ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا",
+    surah:"البقرة", ayah:"٢٨٦", surahN:2, ayahStart:286, ayahEnd:286 },
+  { text: "رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا أَنتَ مَوْلَانَا فَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+    surah:"البقرة", ayah:"٢٨٦", surahN:2, ayahStart:286, ayahEnd:286 },
+  { text: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً إِنَّكَ أَنتَ الْوَهَّابُ",
+    surah:"آل عمران", ayah:"٨", surahN:3, ayahStart:8, ayahEnd:8 },
+  { text: "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ",
+    surah:"آل عمران", ayah:"٩", surahN:3, ayahStart:9, ayahEnd:9 },
+  { text: "رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ ۞ رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ",
+    surah:"آل عمران", ayah:"١٦", surahN:3, ayahStart:16, ayahEnd:16 },
+  { text: "رَبَّنَا آمَنَّا بِمَا أَنزَلْتَ وَاتَّبَعْنَا الرَّسُولَ فَاكْتُبْنَا مَعَ الشَّاهِدِينَ",
+    surah:"آل عمران", ayah:"٥٣", surahN:3, ayahStart:53, ayahEnd:53 },
+  { text: "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+    surah:"آل عمران", ayah:"١٤٧", surahN:3, ayahStart:147, ayahEnd:147 },
+  { text: "رَبَّنَا مَا خَلَقْتَ هَٰذَا بَاطِلًا سُبْحَانَكَ فَقِنَا عَذَابَ النَّارِ",
+    surah:"آل عمران", ayah:"١٩١", surahN:3, ayahStart:191, ayahEnd:191 },
+  { text: "رَبَّنَا إِنَّكَ مَن تُدْخِلِ النَّارَ فَقَدْ أَخْزَيْتَهُ وَمَا لِلظَّالِمِينَ مِنْ أَنصَارٍ",
+    surah:"آل عمران", ayah:"١٩٢", surahN:3, ayahStart:192, ayahEnd:192 },
+  { text: "رَبَّنَا إِنَّنَا سَمِعْنَا مُنَادِيًا يُنَادِي لِلْإِيمَانِ أَنْ آمِنُوا بِرَبِّكُمْ فَآمَنَّا",
+    surah:"آل عمران", ayah:"١٩٣", surahN:3, ayahStart:193, ayahEnd:193 },
+  { text: "رَبَّنَا فَاغْفِرْ لَنَا ذُنُوبَنَا وَكَفِّرْ عَنَّا سَيِّئَاتِنَا وَتَوَفَّنَا مَعَ الْأَبْرَارِ",
+    surah:"آل عمران", ayah:"١٩٣", surahN:3, ayahStart:193, ayahEnd:193 },
+  { text: "رَبَّنَا وَآتِنَا مَا وَعَدتَّنَا عَلَىٰ رُسُلِكَ وَلَا تُخْزِنَا يَوْمَ الْقِيَامَةِ إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ",
+    surah:"آل عمران", ayah:"١٩٤", surahN:3, ayahStart:194, ayahEnd:194 },
+  { text: "رَبَّنَا أَخْرِجْنَا مِنْ هَٰذِهِ الْقَرْيَةِ الظَّالِمِ أَهْلُهَا وَاجْعَل لَّنَا مِن لَّدُنكَ وَلِيًّا وَاجْعَل لَّنَا مِن لَّدُنكَ نَصِيرًا",
+    surah:"النساء", ayah:"٧٥", surahN:4, ayahStart:75, ayahEnd:75 },
+  { text: "رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+    surah:"الأعراف", ayah:"٢٣", surahN:7, ayahStart:23, ayahEnd:23 },
+  { text: "رَبَّنَا افْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا بِالْحَقِّ وَأَنتَ خَيْرُ الْفَاتِحِينَ",
+    surah:"الأعراف", ayah:"٨٩", surahN:7, ayahStart:89, ayahEnd:89 },
+  { text: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ ۞ أَنتَ وَلِيُّنَا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنتَ خَيْرُ الْغَافِرِينَ",
+    surah:"الأعراف", ayah:"١٢٦-١٢٧", surahN:7, ayahStart:126, ayahEnd:127 },
+  { text: "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلْقَوْمِ الظَّالِمِينَ وَنَجِّنَا بِرَحْمَتِكَ مِنَ الْقَوْمِ الْكَافِرِينَ",
+    surah:"يونس", ayah:"٨٥-٨٦", surahN:10, ayahStart:85, ayahEnd:86 },
+  { text: "رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ وَإِلَّا تَغْفِرْ لِي وَتَرْحَمْنِي أَكُن مِّنَ الْخَاسِرِينَ",
+    surah:"هود", ayah:"٤٧", surahN:11, ayahStart:47, ayahEnd:47 },
+  { text: "رَبِّ أَنتَ وَلِيِّي فِي الدُّنْيَا وَالْآخِرَةِ تَوَفَّنِي مُسْلِمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
+    surah:"يوسف", ayah:"١٠١", surahN:12, ayahStart:101, ayahEnd:101 },
+  { text: "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي وَمَا نُعْلِنُ وَمَا يَخْفَىٰ عَلَى اللَّهِ مِن شَيْءٍ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ",
+    surah:"إبراهيم", ayah:"٣٨", surahN:14, ayahStart:38, ayahEnd:38 },
+  { text: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءَ ۞ رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
+    surah:"إبراهيم", ayah:"٤٠-٤١", surahN:14, ayahStart:40, ayahEnd:41 },
+  { text: "رَبِّ أَدْخِلْنِي مُدْخَلَ صِدْقٍ وَأَخْرِجْنِي مُخْرَجَ صِدْقٍ وَاجْعَل لِّي مِن لَّدُنكَ سُلْطَانًا نَّصِيرًا",
+    surah:"الإسراء", ayah:"٨٠", surahN:17, ayahStart:80, ayahEnd:80 },
+  { text: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا",
+    surah:"الكهف", ayah:"١٠", surahN:18, ayahStart:10, ayahEnd:10 },
+  { text: "رَبِّ إِنِّي وَهَنَ الْعَظْمُ مِنِّي وَاشْتَعَلَ الرَّأْسُ شَيْبًا وَلَمْ أَكُن بِدُعَائِكَ رَبِّ شَقِيًّا",
+    surah:"مريم", ayah:"٤", surahN:19, ayahStart:4, ayahEnd:4 },
+  { text: "رَبِّ اشْرَحْ لِي صَدْرِي ۞ وَيَسِّرْ لِي أَمْرِي ۞ وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي ۞ يَفْقَهُوا قَوْلِي ۞ رَبِّ زِدْنِي عِلْمًا",
+    surah:"طه", ayah:"٢٥-٢٨، ١١٤", surahN:20, ayahStart:25, ayahEnd:28, ayahExtra:[{surahN:20,ayahStart:114,ayahEnd:114}] },
+  { text: "لَا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ ۞ رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنتَ خَيْرُ الْوَارِثِينَ",
+    surah:"الأنبياء", ayah:"٨٧-٨٩", surahN:21, ayahStart:87, ayahEnd:89 },
+  { text: "رَبِّ أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ",
+    surah:"الأنبياء", ayah:"٨٣", surahN:21, ayahStart:83, ayahEnd:83 },
+  { text: "رَبِّ أَنزِلْنِي مُنزَلًا مُّبَارَكًا وَأَنتَ خَيْرُ الْمُنزِلِينَ",
+    surah:"المؤمنون", ayah:"٢٩", surahN:23, ayahStart:29, ayahEnd:29 },
+  { text: "رَبِّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ وَأَعُوذُ بِكَ رَبِّ أَن يَحْضُرُونِ",
+    surah:"المؤمنون", ayah:"٩٧-٩٨", surahN:23, ayahStart:97, ayahEnd:98 },
+  { text: "رَبَّنَا آمَنَّا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+    surah:"المؤمنون", ayah:"١٠٩", surahN:23, ayahStart:109, ayahEnd:109 },
+  { text: "رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا ۞ إِنَّهَا سَاءَتْ مُسْتَقَرًّا وَمُقَامًا",
+    surah:"الفرقان", ayah:"٦٥-٦٦", surahN:25, ayahStart:65, ayahEnd:66 },
+  { text: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+    surah:"الفرقان", ayah:"٧٤", surahN:25, ayahStart:74, ayahEnd:74 },
+  { text: "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ ۞ وَاجْعَل لِّي لِسَانَ صِدْقٍ فِي الْآخِرِينَ ۞ وَاجْعَلْنِي مِن وَرَثَةِ جَنَّةِ النَّعِيمِ ۞ وَلَا تُخْزِنِي يَوْمَ يُبْعَثُونَ",
+    surah:"الشعراء", ayah:"٨٣-٨٧", surahN:26, ayahStart:83, ayahEnd:87 },
+  { text: "رَبِّ نَجِّنِي وَأَهْلِي مِمَّا يَعْمَلُونَ",
+    surah:"الشعراء", ayah:"١٦٩", surahN:26, ayahStart:169, ayahEnd:169 },
+  { text: "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَىٰ وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ",
+    surah:"النمل", ayah:"١٩", surahN:27, ayahStart:19, ayahEnd:19 },
+  { text: "رَبِّ إِنِّي ظَلَمْتُ نَفْسِي فَاغْفِرْ لِي ۞ رَبِّ انصُرْنِي عَلَى الْقَوْمِ الْمُفْسِدِينَ",
+    surah:"القصص", ayah:"١٦، ٢١", surahN:28, ayahStart:16, ayahEnd:16, ayahExtra:[{surahN:28,ayahStart:21,ayahEnd:21}] },
+  { text: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْمًا فَاغْفِرْ لِلَّذِينَ تَابُوا وَاتَّبَعُوا سَبِيلَكَ وَقِهِمْ عَذَابَ الْجَحِيمِ",
+    surah:"غافر", ayah:"٧", surahN:40, ayahStart:7, ayahEnd:7 },
+  { text: "رَبَّنَا وَأَدْخِلْهُمْ جَنَّاتِ عَدْنٍ الَّتِي وَعَدتَّهُمْ وَمَن صَلَحَ مِنْ آبَائِهِمْ وَأَزْوَاجِهِمْ وَذُرِّيَّاتِهِمْ إِنَّكَ أَنتَ الْعَزِيزُ الْحَكِيمُ",
+    surah:"غافر", ayah:"٨", surahN:40, ayahStart:8, ayahEnd:8 },
+  { text: "رَبَّنَا اكْشِفْ عَنَّا الْعَذَابَ إِنَّا مُؤْمِنُونَ",
+    surah:"الدخان", ayah:"١٢", surahN:44, ayahStart:12, ayahEnd:12 },
+  { text: "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَىٰ وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَصْلِحْ لِي فِي ذُرِّيَّتِي إِنِّي تُبْتُ إِلَيْكَ وَإِنِّي مِنَ الْمُسْلِمِينَ",
+    surah:"الأحقاف", ayah:"١٥", surahN:46, ayahStart:15, ayahEnd:15 },
+  { text: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِّلَّذِينَ آمَنُوا",
+    surah:"الحشر", ayah:"١٠", surahN:59, ayahStart:10, ayahEnd:10 },
+  { text: "رَبَّنَا إِنَّكَ رَءُوفٌ رَّحِيمٌ ۞ رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ ۞ رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلَّذِينَ كَفَرُوا وَاغْفِرْ لَنَا رَبَّنَا إِنَّكَ أَنتَ الْعَزِيزُ الْحَكِيمُ",
+    surah:"الممتحنة", ayah:"٤-٥", surahN:60, ayahStart:4, ayahEnd:5 },
+  { text: "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ ۞ رَبِّ ابْنِ لِي عِندَكَ بَيْتًا فِي الْجَنَّةِ وَنَجِّنِي مِنَ الْقَوْمِ الظَّالِمِينَ",
+    surah:"التحريم", ayah:"٨-١١", surahN:66, ayahStart:8, ayahEnd:11 },
+  { text: "رَبِّ لَا تَذَرْ عَلَى الْأَرْضِ مِنَ الْكَافِرِينَ دَيَّارًا إِنَّكَ إِن تَذَرْهُمْ يُضِلُّوا عِبَادَكَ وَلَا يَلِدُوا إِلَّا فَاجِرًا كَفَّارًا",
+    surah:"نوح", ayah:"٢٦-٢٧", surahN:71, ayahStart:26, ayahEnd:27 },
+  { text: "رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِمَن دَخَلَ بَيْتِيَ مُؤْمِنًا وَلِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ وَلَا تَزِدِ الظَّالِمِينَ إِلَّا تَبَارًا",
+    surah:"نوح", ayah:"٢٨", surahN:71, ayahStart:28, ayahEnd:28 }
+];
+
+/* ═══ State ═══ */
+const toArabic = function(n) { return String(n).replace(/\d/g, function(d){ return '٠١٢٣٤٥٦٧٨٩'[d]; }); };
+
+const N = DUAS.length;
+let counters  = JSON.parse(localStorage.getItem('dua_cnt')  || 'null') || Array(N).fill(0);
+let memorized = JSON.parse(localStorage.getItem('dua_mem')  || 'null') || Array(N).fill(false);
+if (counters.length  !== N) counters  = Array(N).fill(0);
+if (memorized.length !== N) memorized = Array(N).fill(false);
+
+// Reciter names map (folder → Arabic name)
+const RECITERS = {
+  'Alafasy_128kbps':              'مشاري راشد العفاسي',
+  'Abdul_Basit_Murattal_192kbps': 'عبد الباسط — مرتّل',
+  'Abdul_Basit_Mujawwad_128kbps': 'عبد الباسط — مجوّد',
+  'Abdurrahmaan_As-Sudais_192kbps':'عبد الرحمن السديس',
+  'Husary_128kbps':               'الحصري — مرتّل',
+  'Husary_128kbps_Mujawwad':      'الحصري — مجوّد',
+  'Maher_Al_Muaiqly_128kbps':     'ماهر المعيقلي',
+  'Muhammad_Jibreel_128kbps':     'محمد جبريل',
+  'Abu_Bakr_Ash-Shaatree_128kbps':'أبو بكر الشاطري',
+  'Saood_ash-Shuraym_128kbps':    'سعود الشريم',
+  'Yasser_Ad-Dussary_128kbps':    'ياسر الدوسري',
+  'ahmed_ibn_ali_al_ajamy_128kbps':'أحمد العجمي',
+  'Abdullah_Basfar_192kbps':      'عبد الله بصفر',
+};
+
+let currentReciter = localStorage.getItem('dua_reciter') || 'Alafasy_128kbps';
+let playMode       = localStorage.getItem('dua_mode')    || 'single'; // 'single' | 'all'
+let currentAudio   = null;
+let playingIdx     = -1;
+let filter         = 'all';
+
+function save() {
+  localStorage.setItem('dua_cnt', JSON.stringify(counters));
+  localStorage.setItem('dua_mem', JSON.stringify(memorized));
+}
+
+function changeReciter(folder) {
+  currentReciter = folder;
+  localStorage.setItem('dua_reciter', folder);
+  stopAudio();
+  var nameEl = document.getElementById('reciterBadgeName');
+  if (nameEl) nameEl.textContent = RECITERS[folder] || folder;
+  showToast('🎙️ ' + (RECITERS[folder] || folder));
+}
+
+function setPlayMode(mode) {
+  playMode = mode;
+  localStorage.setItem('dua_mode', mode);
+  document.getElementById('modeSingle').classList.toggle('active', mode === 'single');
+  document.getElementById('modeAll').classList.toggle('active', mode === 'all');
+  showToast(mode === 'all' ? '⏭ وضع تشغيل كل الأدعية' : '☝️ وضع دعاء واحد');
+}
+
+/* ═══ Stats ═══ */
+function updateStats() {
+  const totalRec = counters.reduce((a,b)=>a+b,0);
+  const memCnt   = memorized.filter(Boolean).length;
+  const pct      = Math.round(memCnt / N * 100);
+
+  document.getElementById('s-total').textContent = toArabic(document.querySelectorAll('.dua-card').length);
+  document.getElementById('s-mem').textContent   = toArabic(memCnt);
+  document.getElementById('s-rec').textContent   = toArabic(totalRec);
+  document.getElementById('s-pct').textContent   = toArabic(pct) + '٪';
+  document.getElementById('f-rec').textContent   = toArabic(totalRec);
+  document.getElementById('f-mem').textContent   = toArabic(memCnt);
+}
+
+/* ═══ Audio — sequential ayah playback ═══ */
+
+// Build a flat list of {surahN, ayahN} for a dua
+function buildAyahList(d) {
+  var list = [];
+  // main range: ayahStart → ayahEnd (contiguous)
+  for (var a = d.ayahStart; a <= d.ayahEnd; a++) {
+    list.push({ surahN: d.surahN, ayahN: a });
+  }
+  // optional extra segments (non-contiguous ayat, e.g. طه 25-28 + 114)
+  if (d.ayahExtra) {
+    for (var e = 0; e < d.ayahExtra.length; e++) {
+      var seg = d.ayahExtra[e];
+      for (var a2 = seg.ayahStart; a2 <= seg.ayahEnd; a2++) {
+        list.push({ surahN: seg.surahN, ayahN: a2 });
+      }
+    }
+  }
+  return list;
+}
+
+var ayahQueue   = [];   // flat list of {surahN,ayahN} for current dua
+var queuePos    = 0;    // current position in queue
+
+function playDua(idx) {
+  // toggle off if already playing this dua
+  if (playingIdx === idx) {
+    stopAudio();
+    return;
+  }
+
+  stopAudio();
+
+  playingIdx = idx;
+  ayahQueue  = buildAyahList(DUAS[idx]);
+  queuePos   = 0;
+
+  // Update UI to playing state
+  var card = document.querySelector('[data-idx="' + idx + '"]');
+  if (card) {
+    card.classList.add('is-playing');
+    var btn = card.querySelector('.play-btn');
+    if (btn) { btn.classList.add('playing'); btn.textContent = '⏸'; }
+  }
+  updateNowPlaying();
+
+  playNextInQueue(idx);
+}
+
+function playNextInQueue(idx) {
+  // If stopped externally or moved to another dua, abort
+  if (playingIdx !== idx) return;
+  // All ayat of this dua done
+  if (queuePos >= ayahQueue.length) {
+    resetPlayBtn(idx);
+    playingIdx = -1;
+    ayahQueue  = [];
+    queuePos   = 0;
+    updateNowPlaying();
+
+    // Auto-advance to next dua if mode is 'all'
+    if (playMode === 'all') {
+      // Find the next visible dua card after idx
+      var allCards = document.querySelectorAll('.dua-card');
+      var found = false;
+      for (var c = 0; c < allCards.length; c++) {
+        var cardIdx = parseInt(allCards[c].getAttribute('data-idx'));
+        if (cardIdx > idx) {
+          // small delay between duas
+          (function(nextIdx){ setTimeout(function(){ playDua(nextIdx); }, 600); })(cardIdx);
+          found = true;
+          break;
+        }
+      }
+      if (!found) showToast('✅ انتهت جميع الأدعية');
+    }
+    return;
+  }
+
+  var item = ayahQueue[queuePos];
+  var url  = ayahUrl(item.surahN, item.ayahN);
+
+  currentAudio = new Audio(url);
+
+  currentAudio.addEventListener('ended', function() {
+    queuePos++;
+    playNextInQueue(idx);
+  });
+
+  currentAudio.addEventListener('error', function() {
+    // Skip failed ayah and try next
+    queuePos++;
+    if (queuePos >= ayahQueue.length) {
+      showAudioError(idx);
+      resetPlayBtn(idx);
+      playingIdx = -1;
+      updateNowPlaying();
+    } else {
+      playNextInQueue(idx);
+    }
+  });
+
+  currentAudio.play().catch(function() {
+    showAudioError(idx);
+    resetPlayBtn(idx);
+    playingIdx = -1;
+    ayahQueue  = [];
+    queuePos   = 0;
+    updateNowPlaying();
+  });
+}
+
+function stopAudio() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.src = '';
+    currentAudio = null;
+  }
+  if (playingIdx >= 0) {
+    resetPlayBtn(playingIdx);
+    playingIdx = -1;
+  }
+  ayahQueue = [];
+  queuePos  = 0;
+  updateNowPlaying();
+}
+
+function resetPlayBtn(idx) {
+  const card = document.querySelector(`[data-idx="${idx}"]`);
+  if (!card) return;
+  card.classList.remove('is-playing');
+  const btn = card.querySelector('.play-btn');
+  if (btn) { btn.classList.remove('playing'); btn.textContent = '▶'; }
+}
+
+function showAudioError(idx) {
+  const card = document.querySelector(`[data-idx="${idx}"]`);
+  if (!card) return;
+  let err = card.querySelector('.audio-err');
+  if (err) { err.style.display = 'block'; setTimeout(()=>err.style.display='none', 4000); }
+}
+
+function updateNowPlaying() {
+  const strip = document.getElementById('nowPlayingStrip');
+  const nameEl = document.getElementById('nowPlayingName');
+  const div = document.getElementById('npDiv');
+  if (playingIdx >= 0) {
+    const d = DUAS[playingIdx];
+    nameEl.textContent = `سورة ${d.surah} — الآية ${d.ayah}`;
+    strip.classList.add('visible');
+    if (div) div.style.display = '';
+  } else {
+    strip.classList.remove('visible');
+    if (div) div.style.display = 'none';
+  }
+}
+
+/* ═══ Counter ═══ */
+function inc(idx) {
+  counters[idx]++;
+  save();
+  const card = document.querySelector(`[data-idx="${idx}"]`);
+  if (card) {
+    const v = card.querySelector('.cnt-val');
+    if (v) { v.textContent = toArabic(counters[idx]); v.classList.remove('bump'); void v.offsetWidth; v.classList.add('bump'); }
+    const fill = card.querySelector('.prog-fill');
+    if (fill) fill.style.width = Math.min(counters[idx]/33*100,100) + '%';
+    const rl = card.querySelector('.read-label');
+    if (rl) rl.textContent = counters[idx] > 0 ? `قرأتَ هذا الدعاء ${toArabic(counters[idx])} مرة` : '';
+  }
+  updateStats();
+}
+
+function dec(idx) {
+  if (counters[idx] <= 0) return;
+  counters[idx]--;
+  save();
+  const card = document.querySelector(`[data-idx="${idx}"]`);
+  if (card) {
+    const v = card.querySelector('.cnt-val');
+    if (v) { v.textContent = toArabic(counters[idx]); }
+    const fill = card.querySelector('.prog-fill');
+    if (fill) fill.style.width = Math.min(counters[idx]/33*100,100) + '%';
+    const rl = card.querySelector('.read-label');
+    if (rl) rl.textContent = counters[idx] > 0 ? `قرأتَ هذا الدعاء ${toArabic(counters[idx])} مرة` : '';
+  }
+  updateStats();
+}
+
+/* ═══ Memorize ═══ */
+function toggleMem(idx) {
+  memorized[idx] = !memorized[idx];
+  save();
+  updateStats();
+  render();
+}
+
+/* ═══ Copy ═══ */
+function copyDua(idx, btn) {
+  navigator.clipboard.writeText(DUAS[idx].text).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '✓';
+    showToast('تم نسخ الدعاء ✓');
+    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋'; }, 2200);
+  });
+}
+
+/* ═══ Toast ═══ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ═══ Filter ═══ */
+function setFilter(el) {
+  filter = el.dataset.filter;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+/* ═══ Reset ═══ */
+function resetAll() {
+  if (!confirm('هل تريد إعادة تعيين جميع العدادات؟')) return;
+  counters.fill(0);
+  save();
+  updateStats();
+  render();
+  showToast('تم إعادة تعيين العدادات ✓');
+}
+
+/* ═══ Render ═══ */
+function render() {
+  stopAudio();
+  const q = document.getElementById('searchBox').value.trim();
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  const visible = DUAS.map((d, i) => ({d, i})).filter(({d, i}) => {
+    if (filter === 'memorized' && !memorized[i]) return false;
+    if (filter === 'other'     &&  memorized[i]) return false;
+    if (q && !d.text.includes(q) && !d.surah.includes(q)) return false;
+    return true;
+  });
+
+  document.getElementById('s-total').textContent = toArabic(visible.length);
+
+  if (!visible.length) {
+    grid.innerHTML = `<div class="empty"><div class="ico">🔍</div><p>لا توجد أدعية تطابق بحثك</p></div>`;
+    return;
+  }
+
+  visible.forEach(({d, i}, ai) => {
+    const pct      = Math.min(counters[i]/33*100, 100);
+    const isMem    = memorized[i];
+    const multiAyah = d.ayah.includes('-');
+
+    const card = document.createElement('div');
+    card.className = `dua-card${isMem ? ' is-memorized' : ''}`;
+    card.setAttribute('data-idx', i);
+    card.style.animationDelay = (ai * 0.045) + 's';
+
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="dua-num">${toArabic(i+1)}</div>
+        <div class="surah-ref">
+          <span class="surah-name">سورة ${d.surah}</span>
+          <span class="ayah-badge${multiAyah?' multi':''}">آية ${d.ayah}</span>
+        </div>
+        <div class="card-actions">
+          <button class="play-btn" onclick="playDua(${i})" title="استمع للآية">▶</button>
+          <button class="ic-btn" onclick="copyDua(${i}, this)" title="نسخ الدعاء">📋</button>
+          <button class="ic-btn${isMem?' green-active':''}" onclick="toggleMem(${i})" title="${isMem?'إلغاء الحفظ':'تمييز كمحفوظ'}">${isMem?'💚':'🤍'}</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="wave-bar">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="dua-text">${d.text}</div>
+      </div>
+      <div class="audio-err">⚠ تعذّر تحميل الصوت — تأكد من الاتصال بالإنترنت</div>
+      <div class="card-foot">
+        <div class="counter-pill">
+          <button class="cnt-btn" onclick="dec(${i})">−</button>
+          <span class="cnt-val">${toArabic(counters[i])}</span>
+          <button class="cnt-btn" onclick="inc(${i})">+</button>
+          <span class="cnt-label">مرة</span>
+        </div>
+        <span class="read-label">${counters[i]>0 ? `قرأتَ هذا الدعاء ${toArabic(counters[i])} مرة` : ''}</span>
+      </div>
+      <div class="prog-track">
+        <div class="prog-fill" style="width:${pct}%"></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  updateStats();
+}
+
+/* ═══ Init ═══ */
+(function init() {
+  // Restore saved reciter
+  var sel = document.getElementById('reciterSelect');
+  if (sel) {
+    sel.value = currentReciter;
+    var nameEl = document.getElementById('reciterBadgeName');
+    if (nameEl) nameEl.textContent = RECITERS[currentReciter] || currentReciter;
+  }
+  // Restore saved play mode
+  setPlayMode(playMode);
+  render();
+  updateStats();
+  updateNowPlaying();
+})();
+</script>
+</body>
+</html>
